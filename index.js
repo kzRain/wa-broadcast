@@ -65,7 +65,7 @@ client.on('message', async msg => {
     // }
     wss.clients.forEach(function each(cli) {
         if (cli.readyState === WebSocket.OPEN) {
-            cli.send(msg);
+            cli.send(JSON.stringify(msg));
         }
     });
 });
