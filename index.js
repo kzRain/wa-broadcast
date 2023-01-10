@@ -63,7 +63,11 @@ client.on('message', async msg => {
     //     // Send a new message to the same chat
     //     kurir.chat(msg);
     // }
-    wss.send(msg);
+    wss.clients.forEach(function each(cli) {
+        if (cli.readyState === WebSocket.OPEN) {
+            cli.send(msg);
+        }
+    });
 });
 
 client.on('message_create', (msg) => {
