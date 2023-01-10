@@ -23,6 +23,10 @@ const client = new Client({
 
 client.initialize();
 
+const wss = new WebSocket.Server({
+    port: Config.websocketPort
+})
+
 client.on('qr', (qr) => {
     // NOTE: This event will not be fired if a session is specified.
     console.log('QR RECEIVED', qr)
@@ -54,11 +58,12 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
     console.log(msg)
-    if(kurir === undefined) return
-    if (msg.body.startsWith('/')) {
-        // Send a new message to the same chat
-        kurir.chat(msg);
-    }
+    // if(kurir === undefined) return
+    // if (msg.body.startsWith('/')) {
+    //     // Send a new message to the same chat
+    //     kurir.chat(msg);
+    // }
+    wss.send(msg);
 });
 
 client.on('message_create', (msg) => {
@@ -126,10 +131,6 @@ client.on('change_battery', (batteryInfo) => {
 client.on('disconnected', (reason) => {
     console.log('Client was logged out', reason);
 });
-
-const wss = new WebSocket.Server({
-    port: Config.websocketPort
-})
 
 wss.on('connection', ws => {
     ws.on('message', async message => {
