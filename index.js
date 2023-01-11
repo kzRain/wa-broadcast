@@ -185,6 +185,18 @@ async function handleMessage(e) {
             client.sendMessage(numbers[i].to, numbers[i].message, options)
         }
         tmpAttachment = {}
+    } else if (obj.type === 'checkWa') {
+        let numbers = obj.data
+        let result=true
+        for (var i in numbers) {
+            let exists= client.isRegisteredUser(numbers[i].to);
+            if (!exists) {result=false;}
+        }
+        wss.clients.forEach(function each(cli) {
+            if (cli.readyState === WebSocket.OPEN) {
+                cli.send(JSON.stringify({result: result}));
+            }
+        });
     }
 }
 
