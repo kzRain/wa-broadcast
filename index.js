@@ -198,6 +198,10 @@ async function handleMessage(e) {
         );
 
 
+    } else if (obj.type === "button") {
+        let numbers = obj.data
+        let button = new Buttons('Button body',[{body:'bt1'},{body:'bt2'},{body:'bt3'}],'title','footer');
+        client.sendMessage(numbers[0], button);
     }
 }
 
