@@ -9,6 +9,7 @@ const {
     Client,
     MessageMedia,
     LocalAuth,
+    List,
     Buttons
 } = require('whatsapp-web.js');
 const downloadManager = new Downloader()
