@@ -8,7 +8,8 @@ const _ = require('lodash')
 const {
     Client,
     MessageMedia,
-    LocalAuth
+    LocalAuth,
+    Buttons
 } = require('whatsapp-web.js');
 const downloadManager = new Downloader()
 let kurir
